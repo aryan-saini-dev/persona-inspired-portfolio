@@ -4,27 +4,27 @@ import menuTrain from "./assets/Additions/Inside-train-chill.gif";
 
 const MENUS = {
   MAIN: [
-    { id: "about",        label: "ABOUT ME",       action: "submenu_about",  fontSize: 80,  offsetX: 0,  offsetY: 0,  skew: -6,  skewY: 10  },
-    { id: "portfolio",    label: "PORTFOLIO",      isExternal: "https://aryan-saini-portfolio.vercel.app/", fontSize: 75, offsetX: 10, offsetY: 5, skew: -8, skewY: -5 },
-    { id: "resume",       label: "RESUME",         action: "submenu_resume", fontSize: 66,  offsetX: 20, offsetY: 8,  skew: -11, skewY: -10 },
-    { id: "contact",      label: "CONTACT ME",     page: "contact",          fontSize: 68,  offsetX: 6,  offsetY: 6,  skew: 0,   skewY: -4  },
-    { id: "speciality",   label: "MY SPECIALITY",  page: "speciality",       fontSize: 65,  offsetX: 14, offsetY: 4,  skew: -5,  skewY: 4   },
-    { id: "instagram",    label: "INSTAGRAM",      page: "instagram",        fontSize: 74,  offsetX: 16, offsetY: 8,  skew: -3,  skewY: 5   },
-    { id: "experience",   label: "EXPERIENCE",     page: "experience",       fontSize: 68,  offsetX: 10, offsetY: 5,  skew: -5,  skewY: -2  },
-    { id: "github",       label: "GITHUB",         isExternal: "https://github.com/aryan-saini-dev", fontSize: 80,  offsetX: 5,  offsetY: 2,  skew: 2,   skewY: 3   },
+    { id: "about",        label: "ABOUT ME",       action: "submenu_about",  fontSize: 64,  offsetX: 0,  offsetY: 0,  skew: -6,  skewY: 10  },
+    { id: "portfolio",    label: "PORTFOLIO",      isExternal: "https://aryan-saini-portfolio.vercel.app/", fontSize: 60, offsetX: 10, offsetY: 5, skew: -8, skewY: -5 },
+    { id: "resume",       label: "RESUME",         action: "submenu_resume", fontSize: 53,  offsetX: 20, offsetY: 8,  skew: -11, skewY: -10 },
+    { id: "contact",      label: "CONTACT ME",     page: "contact",          fontSize: 54,  offsetX: 6,  offsetY: 6,  skew: 0,   skewY: -4  },
+    { id: "speciality",   label: "MY SPECIALITY",  page: "speciality",       fontSize: 52,  offsetX: 14, offsetY: 4,  skew: -5,  skewY: 4   },
+    { id: "instagram",    label: "INSTAGRAM",      page: "instagram",        fontSize: 59,  offsetX: 16, offsetY: 8,  skew: -3,  skewY: 5   },
+    { id: "experience",   label: "EXPERIENCE",     page: "experience",       fontSize: 54,  offsetX: 10, offsetY: 5,  skew: -5,  skewY: -2  },
+    { id: "github",       label: "GITHUB",         isExternal: "https://github.com/aryan-saini-dev", fontSize: 64,  offsetX: 5,  offsetY: 2,  skew: 2,   skewY: 3   },
   ],
   ABOUT: [
-    { id: "projects",     label: "PROJECTS",       page: "projects",         fontSize: 70,  offsetX: 0,  offsetY: 0,  skew: -4,  skewY: -6  },
-    { id: "achievements", label: "ACHIEVEMENTS",   page: "achievements",     fontSize: 62,  offsetX: 14, offsetY: 4,  skew: -5,  skewY: 4   },
-    { id: "contact_sub",  label: "CONTACT ME",     page: "contact",          fontSize: 68,  offsetX: 6,  offsetY: 6,  skew: 0,   skewY: -4  },
-    { id: "portfolio_sub",label: "PORTFOLIO",      isExternal: "https://aryan-saini-portfolio.vercel.app/", fontSize: 65, offsetX: 15, offsetY: 5, skew: -3, skewY: 5 },
-    { id: "profile",      label: "PROFILE",        page: "about",            fontSize: 75,  offsetX: 10, offsetY: 5,  skew: -6,  skewY: 6   },
-    { id: "back",         label: "◄ BACK",         action: "back_main",      fontSize: 60,  offsetX: 0,  offsetY: -2, skew: -2,  skewY: -2  },
+    { id: "projects",     label: "PROJECTS",       page: "projects",         fontSize: 56,  offsetX: 0,  offsetY: 0,  skew: -4,  skewY: -6  },
+    { id: "achievements", label: "ACHIEVEMENTS",   page: "achievements",     fontSize: 50,  offsetX: 14, offsetY: 4,  skew: -5,  skewY: 4   },
+    { id: "contact_sub",  label: "CONTACT ME",     page: "contact",          fontSize: 54,  offsetX: 6,  offsetY: 6,  skew: 0,   skewY: -4  },
+    { id: "portfolio_sub",label: "PORTFOLIO",      isExternal: "https://aryan-saini-portfolio.vercel.app/", fontSize: 52, offsetX: 15, offsetY: 5, skew: -3, skewY: 5 },
+    { id: "profile",      label: "PROFILE",        page: "about",            fontSize: 60,  offsetX: 10, offsetY: 5,  skew: -6,  skewY: 6   },
+    { id: "back",         label: "◄ BACK",         action: "back_main",      fontSize: 48,  offsetX: 0,  offsetY: -2, skew: -2,  skewY: -2  },
   ],
   RESUME: [
-    { id: "resume_q",     label: "DOWNLOAD RESUME?", action: "none",         fontSize: 70,  offsetX: 0,  offsetY: 0,  skew: -2,  skewY: 2   },
-    { id: "resume_yes",   label: "YES",              action: "download_resume", fontSize: 90,  offsetX: 20, offsetY: 5,  skew: -5,  skewY: -5  },
-    { id: "resume_no",    label: "NO",               action: "back_main",    fontSize: 90,  offsetX: 10, offsetY: 5,  skew: 0,   skewY: 0   },
+    { id: "resume_q",     label: "DOWNLOAD RESUME?", action: "none",         fontSize: 56,  offsetX: 0,  offsetY: 0,  skew: -2,  skewY: 2   },
+    { id: "resume_yes",   label: "YES",              action: "download_resume", fontSize: 72,  offsetX: 20, offsetY: 5,  skew: -5,  skewY: -5  },
+    { id: "resume_no",    label: "NO",               action: "back_main",    fontSize: 72,  offsetX: 10, offsetY: 5,  skew: 0,   skewY: 0   },
   ]
 };
 
@@ -184,9 +184,9 @@ export default function P3Menu({ onNavigate }) {
           letter-spacing: 2px; line-height: 0.85;
           display: block; white-space: nowrap; user-select: none;
         }
-        .p3-label-dark { color: #3ce2ff; transition: color 0.12s ease; }
+        .p3-label-dark { color: #e0f6ff; transition: color 0.12s ease; }
         .p3-row.active .p3-label-dark { color: #6b0010; }
-        .p3-row:hover:not(.active) .p3-label-dark { color: #00d9ff; }
+        .p3-row:hover:not(.active) .p3-label-dark { color: #bdeaff; }
 
         .p3-label-bright {
           color: #ff2a2a; position: absolute; inset: 0; z-index: 1;

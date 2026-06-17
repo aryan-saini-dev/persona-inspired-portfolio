@@ -37,3 +37,10 @@ body {
     object-position: calc(50% - 150px) center !important;
   }
 }
+
+@media (min-width: 901px) {
+  #menu-screen, #main {
+    width: calc(100vw / 0.85);
+    height: calc(100vh / 0.85);
+  }
+}

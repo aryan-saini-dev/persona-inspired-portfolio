@@ -13,3 +13,9 @@ body {
   background: #000;
   overflow: hidden;
 }
+
+@media (min-width: 901px) {
+  body {
+    zoom: 0.85;
+  }
+}
