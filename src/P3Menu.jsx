@@ -13,7 +13,7 @@ const MENUS = {
     { id: "instagram",    label: "INSTAGRAM",      page: "instagram",        fontSize: 59,  offsetX: 16, offsetY: 8,  skew: -3,  skewY: 5   },
     { id: "experience",   label: "EXPERIENCE",     page: "experience",       fontSize: 54,  offsetX: 10, offsetY: 5,  skew: -5,  skewY: -2  },
     { id: "github",       label: "GITHUB",         isExternal: "https://github.com/aryan-saini-dev", fontSize: 64,  offsetX: 5,  offsetY: 2,  skew: 2,   skewY: 3   },
-    { id: "game",         label: "TARTARUS ASSAULT",page: "game",             fontSize: 56,  offsetX: 12, offsetY: 4,  skew: -4,  skewY: 6   },
+    { id: "game",         label: "PLAY A GAME",      page: "game",             fontSize: 56,  offsetX: 12, offsetY: 4,  skew: -4,  skewY: 6   },
   ],
   ABOUT: [
     { id: "projects",     label: "PROJECTS",       page: "projects",         fontSize: 56,  offsetX: 0,  offsetY: 0,  skew: -4,  skewY: -6  },
