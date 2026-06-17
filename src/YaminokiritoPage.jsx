@@ -10,7 +10,7 @@ const INSTA_DATA = [
     items: [
       {
         title: "FAMOUS CONTENT CREATOR & AUTHOR",
-        desc: "I collaborated with popular content creator and author @inspired.author (225K+ followers) on promotional edits for his official works, including the popular Webtoon God Game. My designs helped elevate his brand and engage his audience effectively."
+        desc: "Collaborated with author @inspired.author (225K+ followers) on promotional edits for official works, including the Webtoon God Game, successfully elevating brand engagement."
       }
     ]
   },
@@ -19,11 +19,11 @@ const INSTA_DATA = [
     items: [
       {
         title: "INSTAGRAM CREATOR WITH MILLIONS OF VIEWERS",
-        desc: "As @yaminokirito, I am an Instagram creator with millions of viewers, known for delivering engaging and visually impactful content. Through creative designs and consistent storytelling, I've built a growing community of over 25K followers. My work focuses on connecting with audiences and creating visuals that leave a lasting impression."
+        desc: "As @yaminokirito, I've built a community of 25K+ followers with millions of viewers. Known for delivering engaging, visually impactful content and consistent storytelling."
       },
       {
         title: "MY DESIGNS MERCH HAVE BEEN BOUGHT",
-        desc: "My designs have been featured on merchandise such as mousepads, wall art, and posters, purchased and appreciated by fans. This highlights the versatility and impact of my creative work in turning visuals into products people use and enjoy daily."
+        desc: "My designs have been featured on merchandise like mousepads, wall art, and posters, purchased globally by fans, highlighting the real-world impact of my creative work."
       }
     ]
   }
@@ -208,15 +208,15 @@ export default function YaminokiritoPage() {
         /* DETAILED MODE LIST */
         @keyframes yk-fade-in { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .yk-section {
-          margin-bottom: 40px;
+          margin-bottom: 20px;
           animation: yk-fade-in 0.4s ease forwards;
         }
 
         .yk-section-title {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 42px; letter-spacing: 4px;
+          font-size: 34px; letter-spacing: 4px;
           color: #000;
-          margin-bottom: 15px;
+          margin-bottom: 10px;
           text-shadow: 2px 2px 0 #c4001a, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
           position: relative;
           display: inline-block;
@@ -232,8 +232,8 @@ export default function YaminokiritoPage() {
           border: 1px solid rgba(255,215,0,0.6); /* Gold border from user's image */
           clip-path: polygon(0 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
           box-shadow: inset 0 0 0 1px rgba(255,215,0,0.2), 8px 8px 0 rgba(0,0,0,0.5);
-          padding: 25px;
-          margin-bottom: 20px;
+          padding: 15px 20px;
+          margin-bottom: 15px;
           transition: transform 0.3s ease, border-color 0.3s ease;
         }
         .yk-card:hover {
@@ -243,15 +243,15 @@ export default function YaminokiritoPage() {
 
         .yk-card-title {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 28px; letter-spacing: 2px;
+          font-size: 22px; letter-spacing: 2px;
           color: #fff;
-          margin-bottom: 12px;
+          margin-bottom: 6px;
           text-transform: uppercase;
         }
         
         .yk-card-desc {
           font-family: 'Montserrat', sans-serif;
-          font-weight: 400; font-size: 14px; line-height: 1.6;
+          font-weight: 400; font-size: 13px; line-height: 1.4;
           color: rgba(230,245,255,0.85);
         }
         .yk-card-desc strong {

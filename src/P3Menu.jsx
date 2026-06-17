@@ -51,9 +51,9 @@ export default function P3Menu({ onNavigate }) {
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
-      if (w < 480) setScaleFactor(0.40);
-      else if (w < 768) setScaleFactor(0.50);
-      else if (w < 1024) setScaleFactor(0.70);
+      if (w < 480) setScaleFactor(0.55);
+      else if (w < 768) setScaleFactor(0.65);
+      else if (w < 1024) setScaleFactor(0.75);
       else setScaleFactor(0.85);
     };
     handleResize();
