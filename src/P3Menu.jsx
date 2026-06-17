@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import menuTrain from "./assets/Additions/Inside-train-chill.gif";
+import resumeFile from "../Aryan_Saini_Resume___Jake_s_Template (2)_compressed.pdf";
 
 const MENUS = {
   MAIN: [
@@ -12,6 +13,7 @@ const MENUS = {
     { id: "instagram",    label: "INSTAGRAM",      page: "instagram",        fontSize: 59,  offsetX: 16, offsetY: 8,  skew: -3,  skewY: 5   },
     { id: "experience",   label: "EXPERIENCE",     page: "experience",       fontSize: 54,  offsetX: 10, offsetY: 5,  skew: -5,  skewY: -2  },
     { id: "github",       label: "GITHUB",         isExternal: "https://github.com/aryan-saini-dev", fontSize: 64,  offsetX: 5,  offsetY: 2,  skew: 2,   skewY: 3   },
+    { id: "game",         label: "TARTARUS ASSAULT",page: "game",             fontSize: 56,  offsetX: 12, offsetY: 4,  skew: -4,  skewY: 6   },
   ],
   ABOUT: [
     { id: "projects",     label: "PROJECTS",       page: "projects",         fontSize: 56,  offsetX: 0,  offsetY: 0,  skew: -4,  skewY: -6  },
@@ -49,10 +51,10 @@ export default function P3Menu({ onNavigate }) {
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
-      if (w < 480) setScaleFactor(0.35);
-      else if (w < 768) setScaleFactor(0.5);
-      else if (w < 1024) setScaleFactor(0.8);
-      else setScaleFactor(1);
+      if (w < 480) setScaleFactor(0.40);
+      else if (w < 768) setScaleFactor(0.50);
+      else if (w < 1024) setScaleFactor(0.70);
+      else setScaleFactor(0.85);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -67,7 +69,7 @@ export default function P3Menu({ onNavigate }) {
       else if (item.action === "back_main") { setMenuState("MAIN"); setActive(0); setAnimKey(k=>k+1); }
       else if (item.action === "download_resume") {
         const a = document.createElement("a");
-        a.href = "/resume.pdf";
+        a.href = resumeFile;
         a.download = "Aryan_Saini_Resume.pdf";
         document.body.appendChild(a);
         a.click();
@@ -240,6 +242,7 @@ export default function P3Menu({ onNavigate }) {
           .p3-name-tag { font-size: 36px; left: 15px; top: 10px; }
           .p3-name-tag span:first-child { transform: translateY(-5px); }
           .p3-hint { display: none; } /* Hide keyboard hints entirely on mobile */
+          .p3-overlay { background: rgba(0, 0, 0, 0.2); } /* Slightly dim the background on mobile */
         }
       `}</style>
 

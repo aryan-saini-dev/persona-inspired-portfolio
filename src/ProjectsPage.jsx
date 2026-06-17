@@ -600,7 +600,7 @@ export default function ProjectsPage() {
           .prj-left {
             flex: 0 0 auto;
             width: 100%;
-            padding: 10px 10px 10px 10px;
+            padding: 60px 10px 10px 10px;
           }
           .prj-right {
             flex: 0 0 auto;

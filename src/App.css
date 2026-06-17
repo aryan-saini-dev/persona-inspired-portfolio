@@ -30,8 +30,14 @@ body {
 }
 
 @media (max-width: 900px) {
+  #menu-screen, #main {
+    width: calc(100vw / 0.7);
+    height: calc(100dvh / 0.7 - 100px);
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
   .main-menu-video {
-    object-position: calc(50% + 50px) center !important;
+    object-position: calc(50% + 200px) center !important;
   }
   .profile-video {
     object-position: calc(50% - 150px) center !important;

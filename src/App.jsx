@@ -13,6 +13,7 @@ import AchievementsPage from './AchievementsPage'
 import YaminokiritoPage from './YaminokiritoPage'
 import ExperiencePage from './ExperiencePage'
 import SpecialityPage from './SpecialityPage'
+import RpsGame from './RpsGame'
 import LoopingVideo from './LoopingVideo'
 import IntroLoopVideo from './IntroLoopVideo'
 import menuIntro from './assets/Additions/mainn_part1.mp4'
@@ -63,6 +64,9 @@ function AnimatedRoutes() {
           <PageTransition><ExperiencePage /></PageTransition>
         } />
         <Route path="/socials" element={<Navigate to="/contact" replace />} />
+        <Route path="/game" element={
+          <PageTransition><RpsGame /></PageTransition>
+        } />
       </Routes>
     </AnimatePresence>
   )

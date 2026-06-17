@@ -19,3 +19,12 @@ body {
     zoom: 0.85;
   }
 }
+
+@media (max-width: 900px) {
+  body {
+    width: 142.857vw !important;
+    height: 142.857vh !important;
+    zoom: 0.7 !important;
+  }
+}
+

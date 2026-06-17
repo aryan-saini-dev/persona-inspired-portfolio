@@ -18,8 +18,8 @@ const EDUCATION_ROWS = [
 ];
 const EDUCATION_BULLETS = [
   "B.Tech in Computer Science with AI Specialization",
-  "AIR 3 in Python Programming on LeetCode",
-  "250+ LeetCode problems solved",
+  "AIR 3 Nationally in CBSE Board Exams (Python Programming)",
+  "250+ LeetCode problems solved & 150+ day streak",
 ];
 
 const SKILLS_ROWS = [
@@ -417,7 +417,7 @@ export default function ResumePage({ src }) {
           .resume-left {
             flex: 0 0 auto;
             width: 100%;
-            padding: 20px 20px 10px 20px;
+            padding: 60px 20px 10px 20px;
           }
           .resume-right {
             flex: 0 0 auto;

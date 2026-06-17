@@ -288,7 +288,7 @@ export default function YaminokiritoPage() {
           .yk-left {
             flex: 0 0 auto;
             width: 100%;
-            padding: 10px 10px 10px 10px;
+            padding: 60px 10px 10px 10px;
             justify-content: flex-start;
           }
           .yk-right {

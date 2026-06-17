@@ -90,7 +90,7 @@ export default function ExperiencePage() {
         .exp-layout {
           position: absolute; inset: 0; z-index: 20;
           display: flex; flex-direction: column; justify-content: space-between;
-          padding: 60px;
+          padding: 40px;
           pointer-events: none;
         }
 
@@ -99,7 +99,7 @@ export default function ExperiencePage() {
           display: flex; flex-direction: column;
         }
         .exp-title {
-          font-family: 'Anton', sans-serif; font-size: 80px; color: #fff;
+          font-family: 'Anton', sans-serif; font-size: 60px; color: #fff;
           letter-spacing: 2px; line-height: 0.85; text-transform: uppercase;
           opacity: 0; transform: translateY(-30px);
           transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
@@ -150,7 +150,7 @@ export default function ExperiencePage() {
         }
 
         .exp-station-title {
-          font-family: 'Anton', sans-serif; font-size: 40px; color: rgba(255,255,255,0.7);
+          font-family: 'Anton', sans-serif; font-size: 30px; color: rgba(255,255,255,0.7);
           transition: color 0.3s ease, transform 0.3s ease; letter-spacing: 2px;
           text-transform: uppercase; white-space: nowrap;
           text-shadow: 2px 2px 0px rgba(0,0,0,0.9);
@@ -178,12 +178,12 @@ export default function ExperiencePage() {
         }
 
         .exp-role {
-          font-family: 'Anton', sans-serif; font-size: 60px; color: #fff;
+          font-family: 'Anton', sans-serif; font-size: 48px; color: #fff;
           letter-spacing: 1px; line-height: 1; margin-bottom: 8px;
           text-transform: uppercase; text-shadow: 3px 3px 0px rgba(0,0,0,0.9);
         }
         .exp-company {
-          font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: ${current.lineColor};
+          font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: ${current.lineColor};
           letter-spacing: 3px; margin-bottom: 24px; text-shadow: 2px 2px 0px rgba(0,0,0,0.9);
         }
         .exp-date-badge {
@@ -197,7 +197,7 @@ export default function ExperiencePage() {
           display: flex; flex-direction: column; gap: 16px;
         }
         .exp-achieve-item {
-          font-family: 'Share Tech Mono', monospace; font-size: 20px; color: rgba(255,255,255,0.95);
+          font-family: 'Share Tech Mono', monospace; font-size: 16px; color: rgba(255,255,255,0.95);
           line-height: 1.5; display: flex; align-items: flex-start; gap: 12px;
           text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
         }
@@ -219,7 +219,7 @@ export default function ExperiencePage() {
         @media (max-width: 900px) {
           .exp-layout {
             justify-content: flex-start;
-            padding: 40px 10px 80px 10px;
+            padding: 60px 10px 80px 10px;
             overflow-y: auto;
             pointer-events: auto;
           }

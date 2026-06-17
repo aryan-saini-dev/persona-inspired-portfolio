@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import LoopingVideo from "./LoopingVideo";
 import bgVideo from "./assets/main2.mp4";
-import bgGif from "./assets/Additions/slide1_persona.gif";
 
 const CARDS = [
   {
@@ -44,22 +43,22 @@ const CARDS = [
     ],
   },
   {
-    id: "leetcode_air",
+    id: "cbse_air",
     numeral: "III",
     arcana: "THE EMPEROR",
-    title: "LEETCODE AIR 3",
-    subtitle: "Python Programming",
-    tag: "GLOBAL RANK",
+    title: "PYTHON AIR 3 CBSE",
+    subtitle: "Board Examinations",
+    tag: "NATIONAL RANK",
     tagColor: "#ff9900",
-    date: "2024",
+    date: "2023",
     level: 98,
     accentColor: "#ff9900",
-    desc: "Achieved All India Rank (AIR) 3 globally in Python Programming on LeetCode. Demonstrated mastery over Python syntax, optimization, and advanced algorithms.",
+    desc: "Achieved All India Rank (AIR) 3 nationally in the CBSE Board Exams for Computer Science, demonstrating mastery in Python programming and core concepts.",
     details: [
-      { key: "PLATFORM", val: "LeetCode" },
-      { key: "RANKING",  val: "AIR 3 Globally" },
-      { key: "DOMAIN",   val: "Python Programming" },
-      { key: "FOCUS",    val: "DSA & Optimization" },
+      { key: "BOARD",    val: "CBSE" },
+      { key: "RANKING",  val: "AIR 3 Nationally" },
+      { key: "SUBJECT",  val: "Computer Science" },
+      { key: "FOCUS",    val: "Python Programming" },
     ],
   },
   {
@@ -124,82 +123,70 @@ const CARDS = [
 export default function AchievementsPage() {
   const [active, setActive]   = useState(0);
   const [mounted, setMounted] = useState(false);
-  const [powerReady, setPowerReady] = useState(false);
   const navigate = useNavigate();
-
-  const COLS = 2;
+  const listRef = useRef(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 60);
+    const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
   }, []);
 
-  // Trigger power bar animation when panel changes
-  useEffect(() => {
-    setPowerReady(false);
-    const t = setTimeout(() => setPowerReady(true), 80);
-    return () => clearTimeout(t);
-  }, [active]);
-
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "ArrowLeft") {
-        const n = active - 1;
-        if (n >= 0) { setActive(n); window.playPersonaSound?.('hover'); }
-        else navigate(-1);
+      if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        setActive(i => {
+          const next = Math.max(0, i - 1);
+          if(next !== i) window.playPersonaSound?.('hover');
+          return next;
+        });
       }
-      if (e.key === "ArrowRight") {
-        const n = active + 1;
-        if (n < CARDS.length) { setActive(n); window.playPersonaSound?.('hover'); }
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        setActive(i => {
+          const next = Math.min(CARDS.length - 1, i + 1);
+          if(next !== i) window.playPersonaSound?.('hover');
+          return next;
+        });
       }
-      if (e.key === "ArrowUp") {
-        const n = active - COLS;
-        if (n >= 0) { setActive(n); window.playPersonaSound?.('hover'); }
+      if (e.key === "Escape" || e.key === "Backspace") {
+        window.playPersonaSound?.('cancel');
+        navigate(-1);
       }
-      if (e.key === "ArrowDown") {
-        const n = active + COLS;
-        if (n < CARDS.length) { setActive(n); window.playPersonaSound?.('hover'); }
-      }
-      if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, navigate]);
+  }, [navigate]);
+
+  useEffect(() => {
+    // scroll active item into view
+    if (listRef.current) {
+      const activeEl = listRef.current.children[active];
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [active]);
 
   const card = CARDS[active];
 
   return (
     <div id="menu-screen">
-      <LoopingVideo src={bgVideo}  />
-
-      {/* Slide1 GIF as right-side atmosphere */}
-      <img
-        src={bgGif} alt="" aria-hidden="true"
-        style={{
-          position: "absolute", right: 0, top: 0,
-          height: "100vh", width: "auto",
-          opacity: 0.07, zIndex: 1, pointerEvents: "none",
-          objectFit: "cover", objectPosition: "top right",
-        }}
-      />
+      <LoopingVideo src={bgVideo} opacity={0.8} />
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@300;400;700&family=Share+Tech+Mono&display=swap');
 
-        /* ── Circle reveal ── */
+        /* ── Entry left-wipe ── */
         .ach-entry {
-          position: absolute; inset: 0; z-index: 9; overflow: hidden;
+          position: absolute; inset: 0; z-index: 9;
           background: transparent;
-          clip-path: circle(0 at 50% 50%);
-          animation: ach-reveal 1.1s cubic-bezier(0.16,1,0.3,1) forwards;
+          animation: ach-wipe 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
           pointer-events: none;
         }
-        @keyframes ach-reveal {
-          from { clip-path: circle(0 at 50% 50%); }
-          to   { clip-path: circle(150vmax at 50% 50%); }
+        @keyframes ach-wipe {
+          0%   { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+          100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
         }
 
-        /* ── Scanlines ── */
         .ach-scanlines {
           position: absolute; inset: 0; z-index: 2; pointer-events: none;
           background-image: repeating-linear-gradient(
@@ -208,454 +195,224 @@ export default function AchievementsPage() {
           );
         }
 
-        /* ── Stripes ── */
-        .ach-stripe  { position:absolute; right:0; top:0; bottom:0; width:5px; background:#c4001a; z-index:30; }
-        .ach-stripe2 { position:absolute; right:9px; top:0; bottom:0; width:2px; background:rgba(196,0,26,0.22); z-index:30; }
-
-        /* ── Two-column layout ── */
         .ach-layout {
           position: absolute; inset: 0; z-index: 10;
-          display: flex; pointer-events: none;
+          display: flex; padding: 40px 60px;
         }
 
-        /* ── LEFT ── */
+        /* ── LEFT TIMELINE ── */
         .ach-left {
-          flex: 0 0 55%;
-          display: flex; flex-direction: column;
-          padding: 24px 0 24px 36px;
+          flex: 0 0 45%; display: flex; flex-direction: column;
+          border-right: 2px solid rgba(255,255,255,0.1);
+          padding-right: 40px; position: relative;
+        }
+        .ach-title-wrap {
+          margin-bottom: 30px;
+          opacity: 0; transform: translateX(-40px);
+          transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+        }
+        .ach-title-wrap.mounted { opacity: 1; transform: translateX(0); }
+
+        .ach-main-title {
+          font-family: 'Anton', sans-serif; font-size: 72px; color: #fff;
+          line-height: 0.9; letter-spacing: 2px;
+        }
+        .ach-sub-title {
+          font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: #c4001a;
+          letter-spacing: 5px; margin-top: 5px;
         }
 
-        .ach-title {
-          font-family: 'Anton', sans-serif;
-          font-size: clamp(48px, 6.5vw, 80px);
-          color: #fff; letter-spacing: 2px; line-height: 0.88;
-          margin-bottom: 3px;
-          opacity: 0; transform: translateX(-28px);
-          transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+        .ach-list {
+          flex: 1; overflow-y: auto; padding-right: 15px;
+          display: flex; flex-direction: column; gap: 15px;
+          /* hide scrollbar */
+          -ms-overflow-style: none; scrollbar-width: none;
+          padding-bottom: 40px;
         }
-        .ach-title.mounted { opacity: 1; transform: translateX(0); }
-        .ach-title-sub {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 14px; letter-spacing: 5px; color: #c4001a;
-          margin-bottom: 18px;
-          opacity: 0; transition: opacity 0.4s ease 0.38s;
-        }
-        .ach-title-sub.mounted { opacity: 1; }
+        .ach-list::-webkit-scrollbar { display: none; }
 
-        /* Card grid */
-        .ach-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 8px; flex: 1;
-          align-content: start;
-          pointer-events: all;
+        .ach-item {
+          position: relative; padding: 20px; cursor: pointer;
+          background: rgba(0,0,0,0.4); border-left: 4px solid transparent;
+          transition: all 0.3s ease; opacity: 0; transform: translateX(-20px);
+        }
+        .ach-item.mounted { opacity: 1; transform: translateX(0); }
+        .ach-item.active {
+          background: rgba(196, 0, 26, 0.85); border-left: 4px solid #fff;
+          transform: scale(1.02) translateX(10px);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        /* Arcana card */
-        @keyframes ach-card-mount {
-          from { opacity: 0; transform: translateY(16px); }
-          to   { opacity: 1; transform: translateY(0); }
+        .ach-item-date {
+          font-family: 'Bebas Neue', sans-serif; font-size: 14px;
+          color: rgba(255,255,255,0.6); letter-spacing: 2px;
         }
-        .ach-card {
-          position: relative; height: 110px; cursor: pointer;
-          background: rgba(8,14,56,0.92);
-          clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
-          box-shadow: 0 5px 18px rgba(0,0,0,0.5),
-                      inset 0 0 0 1px rgba(156,247,255,0.07);
-          transition:
-            transform 0.22s cubic-bezier(0.22,1,0.36,1),
-            background 0.2s ease,
-            box-shadow 0.2s ease;
-          opacity: 0;
-          overflow: hidden;
+        .ach-item.active .ach-item-date { color: rgba(255,255,255,0.9); }
+        
+        .ach-item-title {
+          font-family: 'Anton', sans-serif; font-size: 28px;
+          color: #fff; line-height: 1.1; letter-spacing: 1px;
         }
-        .ach-card.mounted {
-          animation: ach-card-mount 0.42s cubic-bezier(0.22,1,0.36,1) forwards;
+        .ach-item-sub {
+          font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600;
+          color: #9cf7ff; margin-top: 5px;
         }
-        .ach-card.active {
-          background: #fff;
-          box-shadow: 7px 7px 0 #c4001a, inset 0 0 0 1px rgba(0,0,0,0.06);
-          transform: translateY(-3px) translateX(2px);
-        }
-        .ach-card:hover:not(.active) {
-          transform: translateY(-2px);
-          box-shadow: 0 9px 24px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(156,247,255,0.16);
-        }
+        .ach-item.active .ach-item-sub { color: #fff; }
 
-        .ach-card-stripe {
-          position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        }
-
-        .ach-card-body {
-          position: absolute; inset: 0;
-          padding: 16px 14px 10px;
-          display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .ach-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
-        .ach-card-numeral {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 11px; letter-spacing: 2px;
-          color: rgba(156,247,255,0.3);
-          transition: color 0.18s ease;
-        }
-        .ach-card.active .ach-card-numeral { color: rgba(0,0,0,0.28) !important; }
-        .ach-card-date {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 18px; letter-spacing: 1px;
-          color: rgba(255,255,255,0.2);
-          transition: color 0.18s ease;
-        }
-        .ach-card.active .ach-card-date { color: rgba(0,0,0,0.25) !important; }
-
-        .ach-card-title {
-          font-family: 'Anton', sans-serif;
-          font-size: 26px; letter-spacing: 1px; line-height: 0.9;
-          color: #fff; transition: color 0.18s ease;
-        }
-        .ach-card.active .ach-card-title { color: #111 !important; }
-        .ach-card-subtitle {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 11px; letter-spacing: 2px;
-          color: rgba(255,255,255,0.35);
-          transition: color 0.18s ease;
-        }
-        .ach-card.active .ach-card-subtitle { color: rgba(0,0,0,0.45) !important; }
-
-        .ach-card-bottom { display: flex; align-items: center; justify-content: space-between; }
-        .ach-card-tag {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 10px; letter-spacing: 2px;
-          padding: 2px 7px; border: 1px solid;
-          clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
-          user-select: none;
-        }
-
-        /* Power bar at card bottom */
-        .ach-card-power {
-          position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-          background: rgba(255,255,255,0.08);
-          overflow: hidden;
-        }
-        .ach-card-power-fill {
-          height: 100%;
-          transform: scaleX(0); transform-origin: left;
-          transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
-        }
-        .ach-card.active .ach-card-power-fill { transform: scaleX(1); }
-
-        /* ── RIGHT — detail panel ── */
+        /* ── RIGHT DETAIL ── */
         .ach-right {
-          flex: 1;
-          display: flex; align-items: center;
-          padding: 24px 50px 24px 14px;
+          flex: 1; display: flex; align-items: center; justify-content: center;
+          padding-left: 60px;
         }
 
-        @keyframes ach-panel-in {
-          0%   { opacity: 0; transform: translateX(32px); }
-          60%  { opacity: 1; transform: translateX(-3px); }
-          100% { opacity: 1; transform: translateX(0); }
+        .ach-detail-panel {
+          width: 100%; max-width: 600px;
+          background: linear-gradient(135deg, rgba(10,20,60,0.95) 0%, rgba(5,10,30,0.95) 100%);
+          border-top: 5px solid #fff;
+          padding: 40px; position: relative;
+          clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+          animation: panel-pop 0.4s cubic-bezier(0.22,1,0.36,1);
         }
-        .ach-panel {
-          width: 100%;
-          background: linear-gradient(180deg, rgba(15,28,105,0.4) 0%, rgba(8,16,68,0.45) 100%);
-          backdrop-filter: blur(8px);
-          clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
-          box-shadow: inset 0 0 0 1px rgba(133,244,255,0.16), 14px 14px 0 rgba(0,6,30,0.55);
-          padding: 20px;
-          animation: ach-panel-in 0.4s cubic-bezier(0.22,1,0.36,1) both;
-          overflow: hidden; position: relative;
-          pointer-events: all;
-        }
-        .ach-panel::before {
-          content: ''; position: absolute; inset: 0;
-          background:
-            linear-gradient(135deg, rgba(133,244,255,0.07) 0 14%, transparent 14% 100%),
-            linear-gradient(180deg, rgba(255,255,255,0.04), transparent 22%);
-          pointer-events: none;
+        @keyframes panel-pop {
+          from { opacity: 0; transform: translateY(20px) scale(0.95); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Arcana label */
-        .ach-panel-arcana {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 11px; letter-spacing: 5px;
-          color: rgba(156,247,255,0.4); margin-bottom: 3px;
-          position: relative; z-index: 1;
+        .ach-det-arcana {
+          position: absolute; right: 20px; top: 20px;
+          font-family: 'Anton', sans-serif; font-size: 80px; color: rgba(255,255,255,0.05);
+          line-height: 0.8; user-select: none; pointer-events: none;
         }
 
-        /* Panel header */
-        .ach-panel-header {
-          position: relative; z-index: 1;
-          display: grid; grid-template-columns: 48px 1fr auto;
-          align-items: center; gap: 12px;
-          min-height: 70px; padding: 0 14px; margin-bottom: 12px;
-          background: linear-gradient(90deg, #8ef5ff 0%, #d3fdff 100%);
-          clip-path: polygon(0 0, 100% 0, calc(100% - 13px) 100%, 0 100%);
-          color: #08153f;
-          box-shadow: 8px 0 0 rgba(196,0,26,0.9);
-        }
-        .ach-panel-header-num {
-          font-family: 'Anton', sans-serif; font-size: 32px; line-height: 1;
-        }
-        .ach-panel-header-title {
-          font-family: 'Anton', sans-serif; font-size: 26px;
-          line-height: 0.9; letter-spacing: 1px;
-        }
-        .ach-panel-header-year {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 28px; letter-spacing: 2px; line-height: 1;
+        .ach-det-tag {
+          display: inline-block; padding: 4px 12px; font-family: 'Bebas Neue', sans-serif;
+          font-size: 16px; letter-spacing: 2px; color: #000; margin-bottom: 20px;
+          clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
         }
 
-        /* Power bar */
-        .ach-panel-power {
-          position: relative; z-index: 1;
-          display: flex; align-items: center; gap: 10px;
-          margin-bottom: 12px;
-        }
-        .ach-panel-power-label {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 13px; letter-spacing: 3px; color: #9cf7ff; flex-shrink: 0;
-        }
-        .ach-panel-power-track {
-          flex: 1; height: 7px;
-          background: rgba(156,247,255,0.1);
-          clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
-          overflow: hidden;
-        }
-        .ach-panel-power-fill {
-          height: 100%; transform-origin: left;
-          transform: scaleX(0);
-          transition: transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.1s;
-        }
-        .ach-panel-power-fill.ready { transform: scaleX(1); }
-        .ach-panel-power-num {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px; letter-spacing: 1px; color: #9cf7ff; flex-shrink: 0;
+        .ach-det-title {
+          font-family: 'Anton', sans-serif; font-size: 48px; color: #fff;
+          line-height: 0.9; margin-bottom: 10px; text-transform: uppercase;
         }
 
-        /* Detail rows */
-        .ach-panel-rows {
-          position: relative; z-index: 1;
-          display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px;
-        }
-        .ach-panel-row {
-          display: grid; grid-template-columns: 76px 1fr;
-          gap: 10px; align-items: center; min-height: 40px; padding: 0 12px;
-          background: rgba(8,18,72,0.96);
-          clip-path: polygon(0 0, 100% 0, calc(100% - 11px) 100%, 0 100%);
-          box-shadow: inset 0 0 0 1px rgba(140,239,255,0.09);
-          transition: transform 0.13s ease;
-        }
-        .ach-panel-row:hover { transform: translateX(3px); }
-        .ach-panel-row-key {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 11px; letter-spacing: 2px; color: rgba(156,247,255,0.38);
-        }
-        .ach-panel-row-val {
-          font-family: 'Anton', sans-serif;
-          font-size: 17px; line-height: 1; color: #edfaff;
+        .ach-det-desc {
+          font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 300;
+          color: #e0e0e0; line-height: 1.6; margin-bottom: 30px;
+          border-left: 2px solid rgba(255,255,255,0.2); padding-left: 15px;
         }
 
-        /* Description */
-        .ach-panel-desc {
-          position: relative; z-index: 1;
-          padding: 12px;
-          background: rgba(5,13,57,0.97);
-          clip-path: polygon(0 0, 100% 0, calc(100% - 13px) 100%, 0 100%);
-          box-shadow: inset 0 0 0 1px rgba(145,239,255,0.09);
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 300; font-size: 12px; line-height: 1.6;
-          color: rgba(200,240,255,0.72);
+        .ach-det-grid {
+          display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+        .ach-det-row {
+          background: rgba(0,0,0,0.4); padding: 10px 15px;
+          border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        .ach-det-key {
+          font-family: 'Bebas Neue', sans-serif; font-size: 12px;
+          color: rgba(156,247,255,0.6); letter-spacing: 2px;
+        }
+        .ach-det-val {
+          font-family: 'Anton', sans-serif; font-size: 18px; color: #fff;
+          margin-top: 2px;
         }
 
-        /* Footer */
-        .ach-footer {
-          position: fixed; bottom: 20px; right: 28px;
-          display: flex; flex-direction: column;
-          align-items: flex-end; gap: 5px;
-          font-family: 'Bebas Neue', sans-serif;
-          z-index: 30; opacity: 0; transition: opacity 0.4s ease 0.55s;
-        }
-        .ach-footer.mounted { opacity: 1; }
-        .ach-footer-row {
-          display: flex; align-items: center; gap: 8px;
-          font-size: 12px; letter-spacing: 2px;
-          color: rgba(255,255,255,0.22);
-        }
-        .ach-footer-key {
-          border: 1px solid rgba(255,255,255,0.15); border-radius: 3px;
-          padding: 1px 5px; font-size: 10px;
+        .mobile-back-btn {
+          display: flex; position: fixed; top: 15px; left: 15px; z-index: 100;
+          background: #c4001a; color: white; font-family: 'Bebas Neue', sans-serif;
+          font-size: 16px; padding: 6px 12px; border-radius: 4px;
+          align-items: center; gap: 4px; box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+          cursor: pointer;
         }
 
-        /* ── RESPONSIVE STYLES ── */
+        /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
           .ach-layout {
-            flex-direction: column;
-            overflow-y: auto;
+            flex-direction: column; padding: 70px 15px 40px; overflow-y: auto;
             pointer-events: auto;
-            padding-bottom: 80px;
           }
           .ach-left {
-            flex: 0 0 auto;
-            width: 100%;
-            padding: 10px 10px 10px 10px;
+            flex: 0 0 auto; border-right: none; padding-right: 0; margin-bottom: 20px;
           }
+          .ach-main-title { font-size: 42px; }
+          .ach-sub-title { font-size: 14px; }
+          
+          /* Carousel for the list on mobile */
+          .ach-list {
+            flex-direction: row; overflow-x: auto; gap: 15px;
+            scroll-snap-type: x mandatory; padding-bottom: 10px;
+            padding-right: 0;
+          }
+          .ach-item {
+            flex: 0 0 80%; scroll-snap-align: center;
+            transform: none !important; margin: 0;
+            opacity: 0.6;
+          }
+          .ach-item.active {
+            opacity: 1; transform: scale(1.02) !important;
+          }
+          
           .ach-right {
-            flex: 0 0 auto;
-            width: 100%;
-            padding: 5px 10px 10px 10px;
-            align-items: flex-start;
+            flex: 0 0 auto; padding-left: 0;
           }
-          .ach-title {
-            font-size: clamp(22px, 8vw, 32px);
-          }
-          .ach-title-sub {
-            font-size: 10px; margin-bottom: 8px;
-          }
-          .ach-grid {
-            grid-template-columns: 1fr;
-          }
-          .ach-panel {
-            animation: none; /* remove slide-in if buggy on mobile */
-            padding: 12px;
-          }
-          .ach-panel-header { min-height: 40px; padding: 0 10px; }
-          .ach-panel-header-num { font-size: 18px; }
-          .ach-panel-header-title { font-size: 16px; }
-          .ach-panel-header-year { font-size: 16px; }
-          .ach-panel-power-num { font-size: 12px; }
-          .ach-panel-row { min-height: 28px; padding: 0 8px; }
-          .ach-panel-row-key { font-size: 10px; }
-          .ach-panel-row-val { font-size: 12px; }
-          .ach-panel-desc { font-size: 11px; padding: 10px; line-height: 1.4; }
-          .ach-footer {
-            display: none; /* Hide keyboard hints entirely on mobile */
-          }
-          .ach-stripe, .ach-stripe2 {
-            display: none;
-          }
-          .mobile-back-btn {
-            display: flex;
-            position: fixed;
-            top: 15px;
-            left: 15px; /* Moved to left to avoid music icon */
-            z-index: 100;
-            background: #c4001a;
-            color: white;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 16px;
-            padding: 6px 12px;
-            border-radius: 4px;
-            align-items: center;
-            gap: 4px;
-            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
-            cursor: pointer;
-          }
+          .ach-det-title { font-size: 32px; }
+          .ach-det-desc { font-size: 13px; }
+          .ach-det-grid { grid-template-columns: 1fr; gap: 10px; }
         }
       `}</style>
 
-      <div 
-        className="mobile-back-btn" 
-        onClick={() => { window.playPersonaSound?.('cancel'); navigate(-1); }}
-      >
+      <div className="ach-entry" aria-hidden="true" />
+      <div className="ach-scanlines" />
+
+      <div className="mobile-back-btn" onClick={() => { window.playPersonaSound?.('cancel'); navigate(-1); }}>
         ◄ BACK
       </div>
 
-      <div className="ach-entry" aria-hidden="true" />
-      <div className="ach-scanlines" />
-      <div className="ach-stripe" />
-      <div className="ach-stripe2" />
-
       <div className="ach-layout">
-        {/* ── LEFT ── */}
+        {/* LEFT */}
         <div className="ach-left">
-          <div className={`ach-title${mounted ? " mounted" : ""}`}>
-            ACHIEVE<br />MENTS
-          </div>
-          <div className={`ach-title-sub${mounted ? " mounted" : ""}`}>
-            — COMPENDIUM · ←→↑↓ NAVIGATE —
+          <div className={`ach-title-wrap ${mounted ? "mounted" : ""}`}>
+            <div className="ach-main-title">ACHIEVEMENTS</div>
+            <div className="ach-sub-title">QUEST LOG // TIMELINE</div>
           </div>
 
-          <div className="ach-grid">
+          <div className="ach-list" ref={listRef}>
             {CARDS.map((c, i) => (
-              <div
-                key={c.id}
-                className={`ach-card${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
-                style={{ animationDelay: mounted ? `${i * 48}ms` : "0ms" }}
-                onMouseEnter={() => { if (active !== i) window.playPersonaSound?.('hover'); setActive(i); }}
+              <div 
+                key={c.id} 
+                className={`ach-item ${active === i ? "active" : ""} ${mounted ? "mounted" : ""}`}
+                style={{ transitionDelay: mounted ? `${i * 50}ms` : '0ms' }}
                 onClick={() => { window.playPersonaSound?.('select'); setActive(i); }}
+                onMouseEnter={() => { if(active !== i) window.playPersonaSound?.('hover'); setActive(i); }}
               >
-                <div className="ach-card-stripe" style={{ background: c.accentColor }} />
-                <div className="ach-card-body">
-                  <div className="ach-card-top">
-                    <div className="ach-card-numeral">ARCANA {c.numeral}</div>
-                    <div className="ach-card-date">{c.date}</div>
-                  </div>
-                  <div>
-                    <div className="ach-card-title">{c.title}</div>
-                    <div className="ach-card-subtitle">{c.subtitle}</div>
-                  </div>
-                  <div className="ach-card-bottom">
-                    <div
-                      className="ach-card-tag"
-                      style={{ color: c.tagColor, borderColor: c.tagColor }}
-                    >
-                      {c.tag}
-                    </div>
-                  </div>
-                </div>
-                <div className="ach-card-power">
-                  <div
-                    className="ach-card-power-fill"
-                    style={{ background: c.accentColor, width: `${c.level}%` }}
-                  />
-                </div>
+                <div className="ach-item-date">{c.date}</div>
+                <div className="ach-item-title">{c.title}</div>
+                <div className="ach-item-sub">{c.subtitle}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* ── RIGHT ── */}
+        {/* RIGHT */}
         <div className="ach-right">
-          <div className="ach-panel" key={active}>
-            <div className="ach-panel-arcana">ARCANA · {card.arcana}</div>
-
-            <div className="ach-panel-header">
-              <div className="ach-panel-header-num">{card.numeral}</div>
-              <div className="ach-panel-header-title">{card.title}</div>
-              <div className="ach-panel-header-year">{card.date}</div>
-            </div>
-
-            <div className="ach-panel-power">
-              <div className="ach-panel-power-label">POWER</div>
-              <div className="ach-panel-power-track">
-                <div
-                  className={`ach-panel-power-fill${powerReady ? " ready" : ""}`}
-                  style={{
-                    background: `linear-gradient(90deg, ${card.accentColor} 0%, rgba(255,255,255,0.4) 100%)`,
-                    width: `${card.level}%`,
-                  }}
-                />
-              </div>
-              <div className="ach-panel-power-num">{card.level}</div>
-            </div>
-
-            <div className="ach-panel-rows">
-              {card.details.map(d => (
-                <div className="ach-panel-row" key={d.key}>
-                  <div className="ach-panel-row-key">{d.key}</div>
-                  <div className="ach-panel-row-val">{d.val}</div>
+          <div className="ach-detail-panel" key={card.id}>
+            <div className="ach-det-arcana">{card.numeral}</div>
+            <div className="ach-det-tag" style={{ background: card.tagColor }}>{card.tag}</div>
+            <div className="ach-det-title" style={{ color: card.accentColor }}>{card.title}</div>
+            <div className="ach-det-desc">{card.desc}</div>
+            
+            <div className="ach-det-grid">
+              {card.details.map((d, i) => (
+                <div className="ach-det-row" key={i}>
+                  <div className="ach-det-key">{d.key}</div>
+                  <div className="ach-det-val">{d.val}</div>
                 </div>
               ))}
             </div>
-
-            <div className="ach-panel-desc">{card.desc}</div>
           </div>
         </div>
-      </div>
 
-      <div className={`ach-footer${mounted ? " mounted" : ""}`}>
-        <div className="ach-footer-row"><span className="ach-footer-key">←→↑↓</span><span>NAVIGATE</span></div>
-        <div className="ach-footer-row"><span className="ach-footer-key">ESC</span><span>BACK</span></div>
       </div>
     </div>
   );

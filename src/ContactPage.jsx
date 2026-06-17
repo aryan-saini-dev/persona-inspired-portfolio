@@ -103,13 +103,13 @@ const CONTACTS = [
     handle: "aryan-saini-dev",
     href: "https://leetcode.com/u/aryan-saini-dev/",
     icon: "🧠",
-    statusTag: "AIR 3",
+    statusTag: "150+ STREAK",
     tagColor: "#ff9900",
     tagBg: "#1a0f00",
-    desc: "Competitive programming and algorithm challenges. AIR 3 in Python Programming, 250+ problems solved.",
+    desc: "Competitive programming and algorithm challenges. 250+ problems solved and 150+ day active streak.",
     terminal: [
       { prompt: "USER",    value: "aryan-saini-dev" },
-      { prompt: "RANK",    value: "AIR 3 (Python)" },
+      { prompt: "STREAK",  value: "150+ Days" },
       { prompt: "SOLVED",  value: "250+ Problems" },
       { prompt: "STATUS",  value: "GRINDING" },
     ],
@@ -150,14 +150,7 @@ export default function ContactPage() {
       {/* Background video */}
       <LoopingVideo src={bgVideo} />
 
-      {/* Atmospheric rain overlay */}
-      <div style={{
-        position: "absolute", left: 0, bottom: 0,
-        height: "30vh", width: "100%",
-        opacity: 0.15, zIndex: 1, pointerEvents: "none",
-      }}>
-        <LoopingVideo src={rainVideo} />
-      </div>
+
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Share+Tech+Mono&display=swap');
@@ -476,7 +469,7 @@ export default function ContactPage() {
           .cntct-left {
             flex: 0 0 auto;
             width: 100%;
-            padding: 10px 10px 10px 10px;
+            padding: 60px 10px 10px 10px;
           }
           .cntct-right {
             flex: 0 0 auto;
@@ -574,7 +567,7 @@ export default function ContactPage() {
                 key={c.id}
                 className={`cntct-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
                 onMouseEnter={() => { if (active !== i) window.playPersonaSound?.('hover'); setActive(i); }}
-                onClick={() => { window.playPersonaSound?.('select'); setActive(i); }}
+                onClick={() => { window.playPersonaSound?.('select'); setActive(i); window.open(c.href, "_blank"); }}
               >
                 <div className="cntct-bar-red" />
                 <div className="cntct-bar">

@@ -13,12 +13,12 @@ const SPECIALITIES = [
     id: "python",
     badge: "I",
     title: "PYTHON EXCELLENCE",
-    subtitle: "AIR 3 · GLOBALLY RANKED",
+    subtitle: "AIR 3 · CBSE BOARDS",
     status: "MASTERED",
     statusColor: "#ff9900",
     statusBg: "#1a0f00",
     image: imgPython,
-    desc: "Achieved All India Rank 3 in Python Programming, showcasing deep expertise in algorithmic problem solving and optimization.",
+    desc: "Achieved All India Rank 3 nationally in CBSE Board Exams for Python Programming, alongside solving 250+ problems with a 150+ day streak on LeetCode.",
   },
   {
     id: "hackathon",
@@ -353,7 +353,7 @@ export default function SpecialityPage() {
           .spec-left {
             flex: 0 0 auto;
             width: 100%;
-            padding: 10px 10px 10px 10px;
+            padding: 60px 10px 10px 10px;
           }
           .spec-right {
             flex: 0 0 auto;
