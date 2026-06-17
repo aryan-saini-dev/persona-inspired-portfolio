@@ -298,28 +298,28 @@ export default function AchievementsPage() {
           color: rgba(156,247,255,0.3);
           transition: color 0.18s ease;
         }
-        .ach-card.active .ach-card-numeral { color: rgba(0,0,0,0.28); }
+        .ach-card.active .ach-card-numeral { color: rgba(0,0,0,0.28) !important; }
         .ach-card-date {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 18px; letter-spacing: 1px;
           color: rgba(255,255,255,0.2);
           transition: color 0.18s ease;
         }
-        .ach-card.active .ach-card-date { color: rgba(0,0,0,0.25); }
+        .ach-card.active .ach-card-date { color: rgba(0,0,0,0.25) !important; }
 
         .ach-card-title {
           font-family: 'Anton', sans-serif;
           font-size: 26px; letter-spacing: 1px; line-height: 0.9;
           color: #fff; transition: color 0.18s ease;
         }
-        .ach-card.active .ach-card-title { color: #111; }
+        .ach-card.active .ach-card-title { color: #111 !important; }
         .ach-card-subtitle {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 11px; letter-spacing: 2px;
           color: rgba(255,255,255,0.35);
           transition: color 0.18s ease;
         }
-        .ach-card.active .ach-card-subtitle { color: rgba(0,0,0,0.45); }
+        .ach-card.active .ach-card-subtitle { color: rgba(0,0,0,0.45) !important; }
 
         .ach-card-bottom { display: flex; align-items: center; justify-content: space-between; }
         .ach-card-tag {
@@ -485,7 +485,80 @@ export default function AchievementsPage() {
           border: 1px solid rgba(255,255,255,0.15); border-radius: 3px;
           padding: 1px 5px; font-size: 10px;
         }
+
+        /* ── RESPONSIVE STYLES ── */
+        @media (max-width: 900px) {
+          .ach-layout {
+            flex-direction: column;
+            overflow-y: auto;
+            pointer-events: auto;
+            padding-bottom: 80px;
+          }
+          .ach-left {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 10px 10px 10px 10px;
+          }
+          .ach-right {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 5px 10px 10px 10px;
+            align-items: flex-start;
+          }
+          .ach-title {
+            font-size: clamp(22px, 8vw, 32px);
+          }
+          .ach-title-sub {
+            font-size: 10px; margin-bottom: 8px;
+          }
+          .ach-grid {
+            grid-template-columns: 1fr;
+          }
+          .ach-panel {
+            animation: none; /* remove slide-in if buggy on mobile */
+            padding: 12px;
+          }
+          .ach-panel-header { min-height: 40px; padding: 0 10px; }
+          .ach-panel-header-num { font-size: 18px; }
+          .ach-panel-header-title { font-size: 16px; }
+          .ach-panel-header-year { font-size: 16px; }
+          .ach-panel-power-num { font-size: 12px; }
+          .ach-panel-row { min-height: 28px; padding: 0 8px; }
+          .ach-panel-row-key { font-size: 10px; }
+          .ach-panel-row-val { font-size: 12px; }
+          .ach-panel-desc { font-size: 11px; padding: 10px; line-height: 1.4; }
+          .ach-footer {
+            display: none; /* Hide keyboard hints entirely on mobile */
+          }
+          .ach-stripe, .ach-stripe2 {
+            display: none;
+          }
+          .mobile-back-btn {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 15px; /* Moved to left to avoid music icon */
+            z-index: 100;
+            background: #c4001a;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
+        }
       `}</style>
+
+      <div 
+        className="mobile-back-btn" 
+        onClick={() => { window.playPersonaSound?.('cancel'); navigate(-1); }}
+      >
+        ◄ BACK
+      </div>
 
       <div className="ach-entry" aria-hidden="true" />
       <div className="ach-scanlines" />

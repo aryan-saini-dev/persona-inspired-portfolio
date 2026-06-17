@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-export default function IntroLoopVideo({ introSrc, loopSrc, opacity = 1 }) {
+export default function IntroLoopVideo({ introSrc, loopSrc, opacity = 1, className = "" }) {
   const [playingIntro, setPlayingIntro] = useState(true);
   const introRef = useRef(null);
   const loopRef = useRef(null);
@@ -27,22 +27,26 @@ export default function IntroLoopVideo({ introSrc, loopSrc, opacity = 1 }) {
       {playingIntro ? (
         <video
           ref={introRef}
+          className={className}
           src={introSrc}
           autoPlay
           muted
           playsInline
           onEnded={handleIntroEnd}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", userSelect: "none" }}
+          draggable={false}
         />
       ) : (
         <video
           ref={loopRef}
+          className={className}
           src={loopSrc}
           autoPlay
           loop
           muted
           playsInline
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", userSelect: "none" }}
+          draggable={false}
         />
       )}
     </div>

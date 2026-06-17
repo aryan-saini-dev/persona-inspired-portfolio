@@ -28,3 +28,12 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+@media (max-width: 900px) {
+  .main-menu-video {
+    object-position: calc(50% + 50px) center !important;
+  }
+  .profile-video {
+    object-position: calc(50% - 150px) center !important;
+  }
+}

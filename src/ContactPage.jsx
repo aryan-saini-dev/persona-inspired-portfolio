@@ -191,7 +191,7 @@ export default function ContactPage() {
         .cntct-layout {
           position: absolute; inset: 0; z-index: 10;
           display: flex;
-          pointer-events: none;
+          pointer-events: auto;
         }
 
         /* ── LEFT COLUMN ── */
@@ -298,7 +298,7 @@ export default function ContactPage() {
           color: #fff;
           transition: all 0.2s ease; user-select: none;
         }
-        .cntct-bar-outer.active .cntct-label { color: #000; font-size: 28px; }
+        .cntct-bar-outer.active .cntct-label { color: #000 !important; font-size: 28px; }
         .cntct-handle {
           font-family: 'Share Tech Mono', monospace;
           font-size: 11px; letter-spacing: 1px;
@@ -306,7 +306,7 @@ export default function ContactPage() {
           transition: all 0.2s ease;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .cntct-bar-outer.active .cntct-handle { color: rgba(0,0,0,0.6); font-size: 13px; }
+        .cntct-bar-outer.active .cntct-handle { color: rgba(0,0,0,0.6) !important; font-size: 13px; }
 
         .cntct-tag {
           font-family: 'Bebas Neue', sans-serif;
@@ -464,7 +464,94 @@ export default function ContactPage() {
           border: 1px solid rgba(255,255,255,0.15); border-radius: 3px;
           padding: 1px 5px; font-size: 10px;
         }
+
+        /* ── RESPONSIVE STYLES ── */
+        @media (max-width: 900px) {
+          .cntct-layout {
+            flex-direction: column;
+            overflow-y: auto;
+            pointer-events: auto;
+            padding-bottom: 80px;
+          }
+          .cntct-left {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 10px 10px 10px 10px;
+          }
+          .cntct-right {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 5px 10px 10px 10px;
+          }
+          .cntct-title {
+            font-size: clamp(22px, 8vw, 32px);
+          }
+          .cntct-title-sub {
+            font-size: 10px; margin-bottom: 8px;
+          }
+          .cntct-bar-outer {
+            transform: translateX(0); /* static on mobile */
+          }
+          .cntct-bar-red {
+            height: 44px;
+          }
+          .cntct-bar-idx { font-size: 14px; top: -12px; }
+          .cntct-bar-label { font-size: 14px; }
+          
+          .cntct-panel {
+            animation: none; /* simple display on mobile */
+            padding: 12px;
+          }
+          .cntct-header { min-height: 40px; padding: 0 10px; margin-bottom: 8px; }
+          .cntct-header-title { font-size: 16px; }
+          .cntct-header-sub { font-size: 10px; }
+          .cntct-body {
+            grid-template-columns: 1fr; /* single column for contact links on mobile */
+            padding: 8px; gap: 8px;
+          }
+          .cntct-prompt-key { font-size: 10px; }
+          .cntct-prompt-val { font-size: 12px; padding-left: 6px; }
+          .cntct-desc { font-size: 12px; padding: 5px 10px; line-height: 1.4; }
+          .cntct-cta { margin: 0 10px 10px; padding: 10px 14px; }
+          .cntct-cta-label { font-size: 14px; }
+
+          /* Fix Selection Effect on Mobile */
+          .cntct-bar-outer.active .cntct-bar-fill {
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 15% 100%);
+          }
+
+          .cntct-footer {
+            display: none; /* Hide keyboard hints entirely on mobile */
+          }
+          .cntct-stripe, .cntct-stripe2 {
+            display: none;
+          }
+          .mobile-back-btn {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 15px; /* Moved to left to avoid music icon */
+            z-index: 100;
+            background: #c4001a;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
+        }
       `}</style>
+
+      <div 
+        className="mobile-back-btn" 
+        onClick={() => { window.playPersonaSound?.('cancel'); navigate(-1); }}
+      >
+        ◄ BACK
+      </div>
 
       <div className="cntct-entry" aria-hidden="true" />
       <div className="cntct-scanlines" />
@@ -547,16 +634,21 @@ export default function ContactPage() {
 
             <div className="cntct-divider" />
 
-            <div className="cntct-desc">{contact.desc}</div>
-
-            <div
-              className="cntct-cta"
-              onMouseEnter={() => window.playPersonaSound?.('hover')}
-              onClick={() => { window.open(contact.href, "_blank"); window.playPersonaSound?.('link'); }}
-            >
-              <div className="cntct-cta-label">OPEN {contact.label}</div>
-              <div className="cntct-cta-arrow">►</div>
-            </div>
+            <div className="cntct-desc">{contact.desc}
+            {contact.href && (
+              <a
+                className="cntct-cta"
+                href={contact.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => window.playPersonaSound?.('hover')}
+                onClick={() => { window.playPersonaSound?.('link'); }}
+                style={{ textDecoration: 'none' }}
+              >
+                <div className="cntct-cta-label">OPEN LINK</div>
+                <div className="cntct-cta-arrow">►</div>
+              </a>
+            )}</div>
           </div>
         </div>
       </div>

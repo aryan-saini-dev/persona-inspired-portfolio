@@ -276,7 +276,89 @@ export default function YaminokiritoPage() {
           border: 1px solid rgba(255,255,255,0.15); border-radius: 3px;
           padding: 1px 5px; font-size: 10px;
         }
+
+        /* ── RESPONSIVE STYLES ── */
+        @media (max-width: 900px) {
+          .yk-layout {
+            flex-direction: column;
+            overflow-y: auto;
+            pointer-events: auto;
+            padding-bottom: 80px;
+          }
+          .yk-left {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 10px 10px 10px 10px;
+            justify-content: flex-start;
+          }
+          .yk-right {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 5px 10px 10px 10px;
+          }
+          .yk-title {
+            font-size: clamp(24px, 8vw, 32px);
+          }
+          .yk-sub {
+            font-size: 10px; margin-bottom: 12px; letter-spacing: 2px;
+          }
+          .yk-stats {
+            gap: 12px;
+            margin-bottom: 20px;
+          }
+          .yk-stat-box { padding: 10px 14px; }
+          .yk-stat-num { font-size: 16px; }
+          .yk-stat-label { font-size: 10px; }
+          .yk-tabs { gap: 15px; margin-bottom: 15px; }
+          .yk-tab { font-size: 12px; padding-bottom: 4px; }
+          .yk-main-cta { margin-top: 20px; padding: 12px 20px; }
+          .yk-main-cta-label { font-size: 16px; }
+
+          .yk-summary-panel {
+            animation: none; /* simple display on mobile */
+            padding: 16px;
+          }
+          .yk-summary-panel-img { height: 160px; margin-bottom: 12px; }
+          .yk-summary-desc { font-size: 11px; line-height: 1.4; }
+
+          .yk-section {
+            animation: none;
+            margin-bottom: 25px;
+          }
+          .yk-section-title { font-size: 20px; margin-bottom: 10px; }
+          .yk-card { padding: 16px; margin-bottom: 12px; }
+          .yk-card-title { font-size: 16px; margin-bottom: 8px; }
+          .yk-card-desc { font-size: 11px; line-height: 1.4; }
+
+          .yk-footer {
+            display: none; /* Hide keyboard hints entirely on mobile */
+          }
+          .mobile-back-btn {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 15px; /* Moved to left to avoid music icon */
+            z-index: 100;
+            background: #c4001a;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
+        }
       `}</style>
+
+      <div 
+        className="mobile-back-btn" 
+        onClick={() => { window.playPersonaSound?.('cancel'); navigate(-1); }}
+      >
+        ◄ BACK
+      </div>
 
       <div className="yk-entry-mask" />
       <div className="yk-scanlines" />

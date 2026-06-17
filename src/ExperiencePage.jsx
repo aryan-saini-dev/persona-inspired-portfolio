@@ -214,7 +214,94 @@ export default function ExperiencePage() {
         .exp-footer.mounted { opacity: 1; }
         .exp-footer-row { display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 2px; color: rgba(255,255,255,0.3); }
         .exp-footer-key { border: 1px solid rgba(255,255,255,0.2); border-radius: 3px; padding: 1px 5px; font-size: 10px; }
+
+        /* ── RESPONSIVE STYLES ── */
+        @media (max-width: 900px) {
+          .exp-layout {
+            justify-content: flex-start;
+            padding: 40px 10px 80px 10px;
+            overflow-y: auto;
+            pointer-events: auto;
+          }
+          .exp-title {
+            font-size: clamp(22px, 8vw, 32px);
+          }
+          .exp-subtitle {
+            font-size: 10px;
+            letter-spacing: 3px;
+          }
+          .exp-transit-map {
+            width: 100%;
+            overflow-x: auto;
+            justify-content: flex-start;
+            padding: 10px 0 20px 0;
+            gap: 20px;
+          }
+          .exp-transit-map::-webkit-scrollbar { height: 4px; }
+          .exp-transit-map::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); }
+          .exp-station {
+            flex-shrink: 0;
+            gap: 8px;
+          }
+          .exp-station::after {
+            width: 30px;
+            top: 6px;
+          }
+          .exp-node {
+            width: 18px; height: 18px; border-width: 2px;
+          }
+          .exp-station-title {
+            font-size: 16px;
+          }
+          .exp-station-role {
+            font-size: 10px; margin-top: -4px;
+          }
+          .exp-details-panel {
+            align-self: center;
+            width: 100%;
+            padding: 12px;
+          }
+          .exp-role {
+            font-size: 16px;
+          }
+          .exp-company {
+            font-size: 14px; margin-bottom: 8px;
+          }
+          .exp-date-badge {
+            font-size: 10px; padding: 4px 10px; margin-bottom: 8px;
+          }
+          .exp-achieve-item {
+            font-size: 10px; gap: 8px; line-height: 1.4;
+          }
+          .exp-footer {
+            display: none; /* Hide keyboard hints entirely on mobile */
+          }
+          .mobile-back-btn {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 15px; /* Moved to left to avoid music icon */
+            z-index: 100;
+            background: #c4001a;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
+        }
       `}</style>
+
+      <div 
+        className="mobile-back-btn" 
+        onClick={() => { window.playPersonaSound?.('cancel'); navigate('/'); }}
+      >
+        ◄ BACK
+      </div>
 
       <div className="exp-mask" />
       

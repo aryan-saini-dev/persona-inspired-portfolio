@@ -3,9 +3,10 @@
  * The `opacity` prop controls the wrapper opacity (default 1 = fully visible).
  * Uses native HTML5 `loop` attribute for seamless looping.
  */
-export default function LoopingVideo({ src, opacity = 1, style = {} }) {
+export default function LoopingVideo({ src, opacity = 1, style = {}, className = "" }) {
   return (
     <video
+      className={className}
       src={src}
       autoPlay
       loop
@@ -20,8 +21,10 @@ export default function LoopingVideo({ src, opacity = 1, style = {} }) {
         opacity,
         zIndex: 0,
         pointerEvents: "none",
+        userSelect: "none",
         ...style
       }}
+      draggable={false}
     />
   );
 }

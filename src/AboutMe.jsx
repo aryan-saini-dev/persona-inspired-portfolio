@@ -111,7 +111,7 @@ export default function AboutMe() {
 
   return (
     <div id="menu-screen">
-      <LoopingVideo src={aboutVideo} opacity={1} />
+      <LoopingVideo src={aboutVideo} opacity={1} className="profile-video" />
 
       {/* Atmospheric rain overlay */}
       <div style={{
@@ -643,7 +643,65 @@ export default function AboutMe() {
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
+
+        /* ── RESPONSIVE STYLES ── */
+        @media (max-width: 900px) {
+          .sc-root {
+            width: 95%; left: 2.5%; top: 5%; transform: none;
+          }
+          .sc-bar {
+            width: 100%; height: 45px;
+          }
+          .sc-bar-outer.active .sc-bar { height: 60px; }
+          .sc-bar-outer.active .sc-bar-red { height: 60px; width: 100%; }
+          .sc-label { font-size: 16px; }
+          .sc-role { font-size: 12px; padding: 0 10px; }
+          
+          .sc-reveal-panel {
+            left: 2.5%; top: 40%; bottom: auto; width: 95%; transform: none; padding: 15px;
+          }
+          .sc-reveal-title { font-size: 22px; letter-spacing: 2px; }
+          .sc-reveal-bio { font-size: 11px; margin-bottom: 12px; }
+          .sc-reveal-grid { grid-template-columns: 1fr; gap: 8px; }
+          .sc-grid-item { font-size: 10px; padding: 8px; }
+
+          .sc-right-nav {
+            top: auto; bottom: 25px; right: 5%; transform: none; flex-direction: row; gap: 8px;
+          }
+          .sc-right-nav .sc-nav-btn { font-size: 36px; }
+          .sc-right-nav .sc-nav-arrow { font-size: 12px; }
+          .sc-char {
+            display: none; /* remove chars on mobile to prevent clutter */
+          }
+          .sc-footer {
+            display: none; /* Hide keyboard hints entirely on mobile */
+          }
+          .mobile-back-btn {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 15px; /* Moved to left to avoid music icon */
+            z-index: 100;
+            background: #c4001a;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
+        }
       `}</style>
+
+      <div 
+        className="mobile-back-btn" 
+        onClick={() => { window.playPersonaSound?.('cancel'); setRevealed(false); }}
+      >
+        ◄ CLOSE
+      </div>
 
       <div className="sc-root" role="navigation">
         {ITEMS.map((item, i) => (

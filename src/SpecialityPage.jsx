@@ -199,7 +199,7 @@ export default function SpecialityPage() {
           z-index: 0;
         }
         .spec-bar-outer.active .spec-bar-fill {
-          clip-path: polygon(28% 0, 100% 0, calc(100% - 12px) 100%, calc(28% + 120px) 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
         }
 
         /* Content inside bar */
@@ -218,7 +218,7 @@ export default function SpecialityPage() {
           user-select: none; transition: color 0.18s ease;
           justify-self: center;
         }
-        .spec-bar-outer.active .spec-badge { color: #111; }
+        .spec-bar-outer.active .spec-badge { color: #111 !important; }
 
         .spec-bar-mid {
           display: flex; flex-direction: column;
@@ -231,14 +231,14 @@ export default function SpecialityPage() {
           color: rgba(255,255,255,0.9); transition: color 0.18s ease;
           user-select: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .spec-bar-outer.active .spec-label { color: #111; }
+        .spec-bar-outer.active .spec-label { color: #111 !important; }
         .spec-sub {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 12px; letter-spacing: 2px;
           color: rgba(255,255,255,0.35); transition: color 0.18s ease;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .spec-bar-outer.active .spec-sub { color: rgba(0,0,0,0.4); }
+        .spec-bar-outer.active .spec-sub { color: rgba(0,0,0,0.4) !important; }
 
         .spec-status {
           font-family: 'Bebas Neue', sans-serif;
@@ -341,7 +341,90 @@ export default function SpecialityPage() {
           border: 1px solid rgba(255,255,255,0.15); border-radius: 3px;
           padding: 1px 5px; font-size: 10px;
         }
+
+        /* ── RESPONSIVE STYLES ── */
+        @media (max-width: 900px) {
+          .spec-layout {
+            flex-direction: column;
+            overflow-y: auto;
+            pointer-events: auto;
+            padding-bottom: 80px;
+          }
+          .spec-left {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 10px 10px 10px 10px;
+          }
+          .spec-right {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 5px 10px 10px 10px;
+          }
+          .spec-title {
+            font-size: clamp(22px, 8vw, 32px);
+          }
+          .spec-title-sub {
+            font-size: 9px; margin-bottom: 8px;
+          }
+          .spec-badge {
+            font-size: 20px;
+          }
+          .spec-label {
+            font-size: 14px;
+          }
+          .spec-sub {
+            font-size: 9px;
+          }
+          .spec-bar-outer {
+            transform: translateX(0); /* static on mobile */
+          }
+          .spec-panel {
+            animation: none; /* simple display on mobile */
+            padding: 12px;
+          }
+          .spec-panel-num { font-size: 16px; }
+          .spec-panel-title { font-size: 14px; line-height: 1.2; }
+          .spec-panel-header { min-height: 40px; margin-bottom: 8px; }
+          .spec-panel-img-wrapper { height: 140px; margin-bottom: 10px; }
+          .spec-panel-desc { font-size: 12px; padding: 8px; line-height: 1.4; }
+
+          /* Fix Selection Effect on Mobile */
+          .spec-bar-outer.active .spec-bar-fill {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          }
+
+          .spec-footer {
+            display: none; /* Hide keyboard hints entirely on mobile */
+          }
+          .spec-stripe, .spec-stripe2 {
+            display: none;
+          }
+          .mobile-back-btn {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 15px; /* Moved to left to avoid music icon */
+            z-index: 100;
+            background: #c4001a;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
+        }
       `}</style>
+
+      <div 
+        className="mobile-back-btn" 
+        onClick={() => { window.playPersonaSound?.('cancel'); navigate('/'); }}
+      >
+        ◄ BACK
+      </div>
 
       {/* Entry circle reveal */}
       <div className="spec-entry-mask" aria-hidden="true" />

@@ -108,7 +108,18 @@ export default function ResumePage({ src }) {
 
       {/* Blue circle entry reveal */}
       <div className="resume-entry-mask" aria-hidden="true">
-        <video className="resume-entry-video" src={src} autoPlay loop muted playsInline />
+      {src && (
+        <video 
+          className="resume-entry-video" 
+          src={src} 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          style={{ userSelect: "none" }}
+          draggable={false}
+        />
+      )}
       </div>
 
       <style>{`
@@ -394,7 +405,79 @@ export default function ResumePage({ src }) {
           border: 1px solid rgba(255,255,255,0.15); border-radius: 3px;
           padding: 1px 5px; font-size: 10px;
         }
+
+        /* ── RESPONSIVE STYLES ── */
+        @media (max-width: 900px) {
+          .resume-layout {
+            flex-direction: column;
+            overflow-y: auto;
+            pointer-events: auto;
+            padding-bottom: 80px;
+          }
+          .resume-left {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 20px 20px 10px 20px;
+          }
+          .resume-right {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 10px 20px 20px 20px;
+          }
+          .resume-page-title {
+            font-size: clamp(22px, 7vw, 32px);
+          }
+          .resume-card-wrap {
+            transform: translateX(0); /* static on mobile */
+          }
+          .resume-badge-text { font-size: 18px; }
+          .resume-title { font-size: 22px; }
+          .resume-rank-label { font-size: 12px; }
+          .resume-rank-number { font-size: 26px; }
+          .resume-subtitle { font-size: 13px; }
+          .resume-panel {
+            animation: none; /* simple display on mobile */
+          }
+          .resume-panel-header-idx { font-size: 20px; }
+          .resume-panel-header-title { font-size: 16px; }
+          .resume-panel-header-prog { font-size: 18px; }
+          .resume-panel-row-idx { font-size: 12px; }
+          .resume-panel-row-title { font-size: 11px; }
+          .resume-panel-row-status { font-size: 8px; }
+          .resume-panel-bottom-title { font-size: 8px; }
+          .resume-panel-bullet { font-size: 7px; }
+          .resume-footer {
+            display: none; /* Hide keyboard hints entirely on mobile */
+          }
+          .resume-stripe, .resume-stripe2 {
+            display: none;
+          }
+          .mobile-back-btn {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 15px; /* Moved to left to avoid music icon */
+            z-index: 100;
+            background: #c4001a;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
+        }
       `}</style>
+
+      <div 
+        className="mobile-back-btn" 
+        onClick={() => { window.playPersonaSound?.('cancel'); navigate('/'); }}
+      >
+        ◄ BACK
+      </div>
 
       <div className="resume-scan" />
       <div className="resume-stripe" />

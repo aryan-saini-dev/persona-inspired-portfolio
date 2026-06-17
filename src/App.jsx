@@ -23,7 +23,7 @@ function MenuScreen() {
   const navigate = useNavigate()
   return (
     <div id="menu-screen">
-      <IntroLoopVideo introSrc={menuIntro} loopSrc={menuLoop} />
+      <IntroLoopVideo introSrc={menuIntro} loopSrc={menuLoop} className="main-menu-video" />
       <P3Menu onNavigate={(page) => navigate(`/${page}`)} />
     </div>
   )

@@ -209,7 +209,7 @@ export default function ProjectsPage() {
         .prj-layout {
           position: absolute; inset: 0; z-index: 10;
           display: flex;
-          pointer-events: none;
+          pointer-events: auto;
         }
 
         /* ── LEFT COLUMN ── */
@@ -293,7 +293,7 @@ export default function ProjectsPage() {
           z-index: 0;
         }
         .prj-bar-outer.active .prj-bar-fill {
-          clip-path: polygon(28% 0, 100% 0, calc(100% - 12px) 100%, calc(28% + 120px) 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
         }
 
         /* Shadow strip under bar */
@@ -321,7 +321,7 @@ export default function ProjectsPage() {
           transition: color 0.18s ease;
           justify-self: center;
         }
-        .prj-bar-outer.active .prj-badge { color: #111; }
+        .prj-bar-outer.active .prj-badge { color: #111 !important; }
 
         .prj-bar-mid {
           display: flex; flex-direction: column;
@@ -337,7 +337,7 @@ export default function ProjectsPage() {
           user-select: none;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .prj-bar-outer.active .prj-label { color: #111; }
+        .prj-bar-outer.active .prj-label { color: #111 !important; }
         .prj-sub {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 12px; letter-spacing: 2px;
@@ -345,7 +345,7 @@ export default function ProjectsPage() {
           transition: color 0.18s ease;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .prj-bar-outer.active .prj-sub { color: rgba(0,0,0,0.4); }
+        .prj-bar-outer.active .prj-sub { color: rgba(0,0,0,0.4) !important; }
 
         .prj-status {
           font-family: 'Bebas Neue', sans-serif;
@@ -588,7 +588,91 @@ export default function ProjectsPage() {
           border: 1px solid rgba(255,255,255,0.15); border-radius: 3px;
           padding: 1px 5px; font-size: 10px;
         }
+
+        /* ── RESPONSIVE STYLES ── */
+        @media (max-width: 900px) {
+          .prj-layout {
+            flex-direction: column;
+            overflow-y: auto;
+            pointer-events: auto;
+            padding-bottom: 80px;
+          }
+          .prj-left {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 10px 10px 10px 10px;
+          }
+          .prj-right {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 5px 10px 10px 10px;
+          }
+          .prj-title {
+            font-size: clamp(22px, 8vw, 32px);
+          }
+          .prj-title-sub {
+            font-size: 9px; margin-bottom: 8px;
+          }
+          .prj-badge {
+            font-size: 20px;
+          }
+          .prj-label {
+            font-size: 14px;
+          }
+          .prj-sub {
+            font-size: 9px;
+          }
+          .prj-bar-outer {
+            transform: translateX(0); /* remove off-screen anim on mobile if it bugs out */
+          }
+          .prj-panel {
+            animation: none; /* simplify animation on mobile */
+            padding: 12px;
+          }
+          .prj-panel-header-num { font-size: 18px; }
+          .prj-panel-title { font-size: 16px; }
+          .prj-panel-rank { font-size: 12px; padding: 2px 6px; }
+          .prj-panel-header { min-height: 40px; padding: 0 10px; }
+          .prj-panel-img-wrapper { height: 140px; margin-bottom: 10px; }
+          .prj-panel-desc { font-size: 12px; padding: 8px; line-height: 1.4; }
+          
+          /* Fix Selection Effect on Mobile */
+          .prj-bar-outer.active .prj-bar-fill {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          }
+
+          .prj-footer {
+            display: none; /* Hide keyboard hints entirely on mobile */
+          }
+          .prj-stripe, .prj-stripe2 {
+            display: none;
+          }
+          .mobile-back-btn {
+            display: flex;
+            position: fixed;
+            top: 15px;
+            left: 15px; /* Moved to left to avoid music icon */
+            z-index: 100;
+            background: #c4001a;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
+        }
       `}</style>
+
+      <div 
+        className="mobile-back-btn" 
+        onClick={() => { window.playPersonaSound?.('cancel'); navigate('/'); }}
+      >
+        ◄ BACK
+      </div>
 
       {/* Entry circle reveal */}
       <div className="prj-entry-mask" aria-hidden="true" />
@@ -685,14 +769,18 @@ export default function ProjectsPage() {
 
             <div className="prj-panel-desc">{proj.desc}</div>
 
-            <div
+            <a
               className="prj-panel-cta"
+              href={proj.github}
+              target="_blank"
+              rel="noopener noreferrer"
               onMouseEnter={() => window.playPersonaSound?.('hover')}
-              onClick={() => { window.open(proj.github, "_blank"); window.playPersonaSound?.('link'); }}
+              onClick={() => { window.playPersonaSound?.('link'); }}
+              style={{ textDecoration: 'none' }}
             >
               <div className="prj-panel-cta-label">VIEW REPOSITORY</div>
               <div className="prj-panel-cta-arrow">►</div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -709,7 +797,7 @@ export default function ProjectsPage() {
           <div className="prj-lb-header">{proj.label}</div>
           
           <div className="prj-lb-close" onClick={() => { setViewedImageIdx(null); window.playPersonaSound?.('cancel'); }}>
-            <span className="prj-lb-key">ESC</span> BACK
+            CLOSE ✖
           </div>
 
           <div className="prj-lb-img-container">
