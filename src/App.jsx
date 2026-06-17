@@ -8,6 +8,7 @@ import P3Menu from './P3Menu'
 import BackgroundMusic from './BackgroundMusic'
 import PageTransition from './PageTransition'
 import IntroLoopVideo from './IntroLoopVideo'
+import RpsGame from './RpsGame'
 import menuIntro from './assets/Additions/mainn_part1.mp4'
 import menuLoop from './assets/Additions/mainn_part2.mp4'
 import './App.css'
@@ -21,7 +22,6 @@ const AchievementsPage = React.lazy(() => import('./AchievementsPage'))
 const YaminokiritoPage = React.lazy(() => import('./YaminokiritoPage'))
 const ExperiencePage = React.lazy(() => import('./ExperiencePage'))
 const SpecialityPage = React.lazy(() => import('./SpecialityPage'))
-const RpsGame = React.lazy(() => import('./RpsGame'))
 
 // Fallback loader while lazy chunks are downloading
 function PersonaLoader() {
@@ -99,7 +99,7 @@ function AnimatedRoutes() {
         <Route path="/socials" element={<Navigate to="/contact" replace />} />
         <Route path="/game" element={
           <PageTransition>
-            <Suspense fallback={<PersonaLoader />}><RpsGame /></Suspense>
+            <RpsGame />
           </PageTransition>
         } />
       </Routes>
